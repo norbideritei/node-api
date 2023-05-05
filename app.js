@@ -7,8 +7,8 @@ var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var teamsDBRouter = require("./routes/teams-db");
-var teamsRouter = require("./routes/teams-json");
+var bookingsDBRouter = require("./routes/bookings-db");
+var bookingsRouter = require("./routes/bookings-json");
 
 var app = express();
 
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/teams", teamsDBRouter);
+app.use("/bookings", bookingsDBRouter);
 
 function processingSimulate(req, res, next) {
   const wait = 500 + Math.floor(Math.random() * 6) * 100; // min-500ms + max-500ms
@@ -34,8 +34,7 @@ function processingSimulate(req, res, next) {
     next();
   }, wait);
 }
-app.use("/teams-json", processingSimulate, teamsRouter);
-//app.use("/teams-json", teamsRouter);
+app.use("/bookings-json", processingSimulate, bookingsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

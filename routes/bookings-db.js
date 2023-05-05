@@ -14,7 +14,7 @@ const pool = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "",
-  database: "teams"
+  database: "bookings"
 });
 
 function getConnection(res) {
@@ -61,7 +61,7 @@ router.get("/install", async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   try {
     const connection = await getConnection(res);
-    const sql = `SELECT id, promotion, members, name, url FROM teams`;
+    const sql = `SELECT id, lname, fname, phone, peg FROM bookings`;
     connection.query(sql, function (err, results) {
       if (err) {
         console.error(err);
@@ -79,15 +79,15 @@ router.get("/", async function (req, res, next) {
  *
  */
 router.post("/create", async function (req, res, next) {
-  const promotion = req.body.promotion;
-  const members = req.body.members;
-  const name = req.body.name;
-  const url = req.body.url;
+  const lname = req.body.lname;
+  const fname = req.body.fname;
+  const phone = req.body.phone;
+  const peg = req.body.peg;
 
   try {
     const connection = await getConnection(res);
-    const sql = `INSERT INTO teams (id, promotion, members, name, url) VALUES (NULL, ?, ?, ?, ?);`;
-    connection.query(sql, [promotion, members, name, url], function (err, results) {
+    const sql = `INSERT INTO bookings (id, lname, fname, phone, peg) VALUES (NULL, ?, ?, ?, ?);`;
+    connection.query(sql, [lname, fname, phone, peg], function (err, results) {
       if (err) throw err;
       const id = results.insertId;
       connection.release();
@@ -107,7 +107,7 @@ router.delete("/delete", async function (req, res, next) {
 
   try {
     const connection = await getConnection(res);
-    const sql = `DELETE FROM teams WHERE id=?`;
+    const sql = `DELETE FROM bookings WHERE id=?`;
     connection.query(sql, [id], function (err, results) {
       if (err) throw err;
       connection.release();
@@ -121,15 +121,15 @@ router.delete("/delete", async function (req, res, next) {
  */
 router.put("/update", async function (req, res, next) {
   const id = req.body.id;
-  const members = req.body.members;
-  const name = req.body.name;
-  const url = req.body.url;
-  const promotion = req.body.promotion;
+  const lname = req.body.lname;
+  const fname = req.body.fname;
+  const phone = req.body.phone;
+  const peg = req.body.peg;
 
   try {
     const connection = await getConnection(res);
-    const sql = `UPDATE teams SET promotion=?, members=?, name=?, url=? WHERE id=?`;
-    connection.query(sql, [promotion, members, name, url, id], function (err, results) {
+    const sql = `UPDATE bookings SET lname=?, fname=?, phone=?, peg=? WHERE id=?`;
+    connection.query(sql, [lname, fname, phone, peg, id], function (err, results) {
       if (err) throw err;
       connection.release();
       res.json({ success: true });
