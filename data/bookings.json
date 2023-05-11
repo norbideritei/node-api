@@ -3,7 +3,7 @@
     "id": "6dk8tm1683274154029",
     "lname": "Deritei",
     "fname": "Norbert",
-    "phone": "0476123489",
+    "phone": "0776123489",
     "peg": "Number 5"
   },
   {
@@ -19,5 +19,12 @@
     "fname": "Grigore",
     "phone": "0784659123",
     "peg": "Number 9"
+  },
+  {
+    "id": "3hjtpk1683820198930",
+    "lname": "Feier",
+    "fname": "Maria",
+    "phone": "0748956124",
+    "peg": "Number 10"
   }
 ]
